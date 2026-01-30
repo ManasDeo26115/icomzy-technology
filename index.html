@@ -1,0 +1,597 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Icomzy - Furniture Catalog</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <style>
+        /* 1. Basic Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Inter', sans-serif;
+    background-color: #faf8f6;
+    color: #2d1f14;
+    line-height: 1.6;
+}
+
+.container {
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 0 16px;
+}
+
+/* 2. Header & Navigation */
+header {
+    border-bottom: 1px solid #e8e3dd;
+    background-color: #ffffff;
+    position: sticky;
+    top: 0;
+    z-index: 40;
+}
+
+.header-content {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 16px 0;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    text-decoration: none;
+    color: #2d1f14;
+}
+
+.logo-text h1 {
+    font-size: 24px;
+    font-weight: 700;
+}
+
+.logo-text p {
+    font-size: 12px;
+    color: #7f7f7f;
+}
+
+nav {
+    display: flex;
+    align-items: center;
+    gap: 32px;
+}
+
+nav a {
+    text-decoration: none;
+    color: #2d1f14;
+    font-weight: 500;
+}
+
+.admin-btn {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 24px;
+    background-color: #c57736;
+    color: #ffffff;
+    border-radius: 6px;
+    font-weight: 600;
+    font-size: 14px;
+    text-decoration: none;
+}
+
+/* 3. Hero & Search */
+main {
+    padding: 48px 0;
+}
+
+.hero {
+    margin-bottom: 48px;
+}
+
+.hero h2 {
+    font-size: 48px; /* Changed from clamp */
+    font-weight: 700;
+    margin-bottom: 16px;
+}
+
+.hero p {
+    font-size: 18px;
+    color: #7f7f7f;
+    max-width: 512px;
+}
+
+.search-bar {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 0 16px;
+    width: 100%;
+    height: 48px;
+    background-color: #e8e3dd;
+    border: 1px solid #e8e3dd;
+    border-radius: 6px;
+}
+
+.search-bar input {
+    flex: 1;
+    border: none;
+    background: none;
+    outline: none;
+    font-size: 16px;
+}
+
+/* 4. Layout Grid */
+.content-wrapper {
+    display: grid;
+    grid-template-columns: 256px 1fr;
+    gap: 32px;
+}
+
+/* 5. Sidebar Filters */
+.filter-card {
+    background-color: #ffffff;
+    padding: 24px;
+    border-radius: 6px;
+    border: 1px solid #e8e3dd;
+}
+
+.filter-card h3 {
+    font-size: 20px;
+    font-weight: 700;
+    margin-bottom: 24px;
+}
+
+.filter-group {
+    margin-bottom: 24px;
+}
+
+.filter-option {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 8px;
+    cursor: pointer;
+}
+
+.filter-option label {
+    font-size: 15px;
+    text-transform: capitalize;
+}
+
+/* 6. Product Grid & Cards */
+.products-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 32px;
+    
+}
+
+.product-image-container {
+    position: relative;
+    width: 100%;
+    height: 288px;
+    overflow: hidden;
+    border-radius: 6px;
+    background-color: #e8e3dd;
+    margin-bottom: 16px;
+}
+
+.product-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.product-name {
+    font-size: 18px;
+    font-weight: 600;
+    margin-bottom: 8px;
+}
+
+.product-description {
+    font-size: 14px;
+    color: #7f7f7f;
+    margin-bottom: 12px;
+}
+
+.product-price {
+    font-size: 24px;
+    font-weight: 700;
+    color: #c57736;
+}
+
+.product-category {
+    font-size: 12px;
+    background-color: #e8e3dd;
+    padding: 4px 12px;
+    border-radius: 999px;
+}
+
+/* 7. Mobile Adjustments */
+@media (max-width: 1024px) {
+    .content-wrapper {
+        grid-template-columns: 1fr;
+    }
+    
+    .hero h2 {
+        font-size: 32px;
+    }
+}
+
+/* SVG Icon Sizing Fix */
+svg {
+    display: flex; /* Removes bottom whitespace */
+    flex-shrink: 0; /* Prevents icons from squishing in flex containers */
+}
+
+.logo-icon {
+    width: 28px;
+    height: 28px;
+}
+
+.search-icon {
+    width: 20px;
+    height: 20px;
+}
+
+.favorite-icon {
+    width: 20px;
+    height: 20px;
+}
+
+.star {
+    width: 16px;
+    height: 16px;
+}
+
+/* If you have icons in buttons, this keeps them aligned */
+.admin-btn svg {
+    width: 18px;
+    height: 18px;
+}
+
+
+/* 1. Fix Star Alignment (Force one line) */
+.product-rating {
+    display: flex;
+    align-items: center;
+    gap: 8px; /* Space between stars and the text */
+    margin-bottom: 16px;
+}
+
+.stars {
+    display: flex; /* This puts all stars in one row */
+    flex-direction: row;
+    gap: 4px; /* Space between individual stars */
+}
+
+.star {
+    width: 16px;
+    height: 16px;
+    flex-shrink: 0; /* Prevents stars from squishing */
+}
+
+/* 2. Add Space Below Search Bar */
+.search-container {
+    margin-bottom: 40px; /* Adjust this value to increase/decrease space */
+}
+
+/* 3. General SVG fix to ensure they stay sized correctly */
+svg {
+    display: inline-block;
+    vertical-align: middle;
+}
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <a href="catalog.html" class="logo">
+                    <svg class="logo-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <circle cx="9" cy="21" r="1"></circle>
+                        <circle cx="20" cy="21" r="1"></circle>
+                        <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
+                    </svg>
+                    <div class="logo-text">
+                        <h1>Icomzy</h1>
+                        <p>Furniture Catalog</p>
+                    </div>
+                </a>
+                <nav>
+                    <a href="index.html">Catalog</a>
+                    <a href="admin.html" class="admin-btn">
+                        <span>⚙️</span>
+                        Admin Panel
+                    </a>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="container">
+        <!-- Hero Section -->
+        <section class="hero">
+            <h2>Discover Our Furniture Collection</h2>
+            <p>Explore our curated selection of modern and elegant furniture pieces. Find the perfect pieces to transform your space.</p>
+        </section>
+
+        <!-- Search Bar -->
+        <div class="search-container">
+            <div class="search-bar">
+                <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <circle cx="11" cy="11" r="8"></circle>
+                    <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                </svg>
+                <input type="text" placeholder="Search products..." id="searchInput">
+            </div>
+        </div>
+
+        <!-- Content Wrapper -->
+        <div class="content-wrapper">
+            <!-- Sidebar Filters -->
+            <aside class="sidebar">
+                <div class="filter-card">
+                    <h3>Filter</h3>
+
+                    <!-- Category Filter -->
+                    <div class="filter-group">
+                        <h4>Category</h4>
+                        <div class="filter-option">
+                            <input type="radio" name="category" value="" id="cat-all" checked>
+                            <label for="cat-all">All Categories</label>
+                        </div>
+                        <div class="filter-option">
+                            <input type="radio" name="category" value="sofas" id="cat-sofas">
+                            <label for="cat-sofas">Sofas</label>
+                        </div>
+                        <div class="filter-option">
+                            <input type="radio" name="category" value="tables" id="cat-tables">
+                            <label for="cat-tables">Tables</label>
+                        </div>
+                        <div class="filter-option">
+                            <input type="radio" name="category" value="chairs" id="cat-chairs">
+                            <label for="cat-chairs">Chairs</label>
+                        </div>
+                        <div class="filter-option">
+                            <input type="radio" name="category" value="beds" id="cat-beds">
+                            <label for="cat-beds">Beds</label>
+                        </div>
+                        <div class="filter-option">
+                            <input type="radio" name="category" value="desks" id="cat-desks">
+                            <label for="cat-desks">Desks</label>
+                        </div>
+                    </div>
+
+                    <!-- Price Filter -->
+                    <div class="filter-group">
+                        <h4>Price Range</h4>
+                        <div>
+                            <label style="font-size: 0.875rem; color: var(--muted-foreground); display: block; margin-bottom: 0.5rem;">Min Price</label>
+                            <input type="range" min="0" max="2000" value="0" step="50" class="price-slider" id="minPrice">
+                            <div class="price-value">₹<span id="minPriceDisplay">0</span></div>
+                        </div>
+                        <div style="margin-top: 1.5rem;">
+                            <label style="font-size: 0.875rem; color: var(--muted-foreground); display: block; margin-bottom: 0.5rem;">Max Price</label>
+                            <input type="range" min="0" max="2000" value="2000" step="50" class="price-slider" id="maxPrice">
+                            <div class="price-value">₹<span id="maxPriceDisplay">2000</span></div>
+                        </div>
+                    </div>
+
+                    <!-- Stock Filter -->
+                    <div class="filter-group">
+                        <h4>Availability</h4>
+                        <div class="filter-option">
+                            <input type="checkbox" id="inStock">
+                            <label for="inStock">In Stock Only</label>
+                        </div>
+                    </div>
+                </div>
+            </aside>
+
+            <!-- Products Section -->
+            <section class="products-section">
+                <div class="products-header" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem;">
+                    <h3 id="productCount">Showing 6 products</h3>
+                </div>
+
+                <div class="products-grid" id="productsGrid">
+                    <!-- Products will be inserted here -->
+                </div>
+
+                <!-- No Results Message -->
+                <div class="no-results" id="noResults" style="display: none;">
+                    <h3>No products found</h3>
+                    <p>Try adjusting your search or filter criteria</p>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <script>
+        // Storage key
+        const STORAGE_KEY = 'furniture_products';
+
+        // Default products
+        const DEFAULT_PRODUCTS = [
+            {
+                id: "1",
+                name: "Modern Sofa Set",
+                price: 1299,
+                category: "sofas",
+                description: "A sleek and comfortable modern sofa set with premium fabric upholstery.",
+                image: "https://images.unsplash.com/photo-1555041469-a586c61ea9bc?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=500&q=60",
+                inStock: true,
+                rating: 4.8,
+                reviews: 142,
+                tags: ["modern", "comfort", "premium"],
+            },
+            {
+                id: "2",
+                name: "Dining Table Oak",
+                price: 549,
+                category: "tables",
+                description: "Handcrafted oak dining table seats 6. Beautiful wood grain finish.",
+                image: "https://images.unsplash.com/photo-1589535255042-88799bb1b20b?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTl8fG9hayUyMHRhYmxlfGVufDB8fDB8fHww",
+                inStock: true,
+                rating: 4.6,
+                reviews: 89,
+                tags: ["wood", "elegant", "durable"],
+            },
+            {
+                id: "3",
+                name: "Lounge Chair",
+                price: 399,
+                category: "chairs",
+                description: "Ergonomic lounge chair with memory foam. Perfect for reading and relaxation.",
+                image: "https://images.unsplash.com/photo-1592078615290-033ee584e267?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=500&q=60",
+                inStock: true,
+                rating: 4.7,
+                reviews: 203,
+                tags: ["ergonomic", "comfort", "premium"],
+            },
+            {
+                id: "4",
+                name: "Bed Frame King Size",
+                price: 799,
+                category: "beds",
+                description: "Solid wood king size bed frame with storage drawers underneath.",
+                image: "https://plus.unsplash.com/premium_photo-1674326699094-55c656af9867?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8QmVkJTIwRnJhbWUlMjBLaW5nJTIwU2l6ZXxlbnwwfHwwfHx8MA%3D%3D",
+                inStock: true,
+                rating: 4.5,
+                reviews: 156,
+                tags: ["spacious", "storage", "quality"],
+            },
+            {
+                id: "5",
+                name: "Coffee Table Walnut",
+                price: 299,
+                category: "tables",
+                description: "Modern coffee table with walnut finish and tempered glass top.",
+                image: "https://plus.unsplash.com/premium_photo-1711391585226-45a983eb8e70?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NXx8Q29mZmVlJTIwVGFibGV8ZW58MHx8MHx8fDA%3D",
+                inStock: true,
+                rating: 4.4,
+                reviews: 67,
+                tags: ["modern", "stylish", "glass"],
+            },
+            {
+                id: "6",
+                name: "Office Desk",
+                price: 349,
+                category: "desks",
+                description: "Spacious office desk with cable management and adjustable height.",
+                image: "https://images.unsplash.com/photo-1589362281138-e3f7ebe47f1a?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8N3x8T2ZmaWNlJTIwRGVza3xlbnwwfHwwfHx8MA%3D%3D",
+                inStock: true,
+                rating: 4.6,
+                reviews: 98,
+                tags: ["functional", "ergonomic", "work"],
+            },
+        ];
+
+        // Get products from storage or use defaults
+        function getProducts() {
+            const stored = localStorage.getItem(STORAGE_KEY);
+            if (!stored) {
+                localStorage.setItem(STORAGE_KEY, JSON.stringify(DEFAULT_PRODUCTS));
+                return DEFAULT_PRODUCTS;
+            }
+            return JSON.parse(stored);
+        }
+
+        // Render products based on filters
+        function renderProducts() {
+            const products = getProducts();
+            const searchQuery = document.getElementById("searchInput").value.toLowerCase();
+            const selectedCategory = document.querySelector('input[name="category"]:checked').value;
+            const minPrice = parseInt(document.getElementById("minPrice").value);
+            const maxPrice = parseInt(document.getElementById("maxPrice").value);
+            const inStockOnly = document.getElementById("inStock").checked;
+
+            let filtered = products.filter(product => {
+                const matchesSearch = product.name.toLowerCase().includes(searchQuery) ||
+                    product.description.toLowerCase().includes(searchQuery) ||
+                    product.tags.some(tag => tag.toLowerCase().includes(searchQuery));
+
+                const matchesCategory = !selectedCategory || product.category === selectedCategory;
+                const matchesPrice = product.price >= minPrice && product.price <= maxPrice;
+                const matchesStock = !inStockOnly || product.inStock;
+
+                return matchesSearch && matchesCategory && matchesPrice && matchesStock;
+            });
+
+            const productsGrid = document.getElementById("productsGrid");
+            const noResults = document.getElementById("noResults");
+            const productCount = document.getElementById("productCount");
+
+            if (filtered.length === 0) {
+                productsGrid.innerHTML = "";
+                noResults.style.display = "block";t4t4t4
+                productCount.textContent = "Showing 0 products";
+                return;
+            }
+
+            noResults.style.display = "none";
+            productCount.textContent = `Showing ${filtered.length} product${filtered.length !== 1 ? "s" : ""}`;
+
+            productsGrid.innerHTML = filtered.map(product => {
+                const starHTML = [...Array(5)].map((_, i) => {
+                    const filled = i < Math.floor(product.rating);
+                    return `<svg class="star ${!filled ? 'empty' : ''}" viewBox="0 0 24 24" ${!filled ? 'stroke="currentColor" stroke-width="2" fill="none"' : 'fill="currentColor"'}>
+                        <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+                    </svg>`;
+                }).join("");
+
+                return `
+                    <div class="product-card">
+                        <div class="product-image-container">
+                            <img src="${product.image}" alt="₹{product.name}" class="product-image" onerror="this.src='https://via.placeholder.com/500x400?text=Product+Image'">
+                            <button class="favorite-btn" onclick="this.classList.toggle('liked'); event.preventDefault();">
+                                <svg class="favorite-icon" viewBox="0 0 24 24">
+                                    <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
+                                </svg>
+                            </button>
+                        </div>
+                        <h3 class="product-name">${product.name}</h3>
+                        <p class="product-description">${product.description}</p>
+                        <div class="product-rating">
+                            <div class="stars">${starHTML}</div>
+                            <span class="review-count">(${product.reviews})</span>
+                        </div>
+                        <div class="product-footer">
+                            <span class="product-price">₹${product.price*10}</span>
+                            <span class="product-category">${product.category}</span>
+                        </div>
+                    </div>
+                `;
+            }).join("");
+        }
+
+        // Event listeners for filters and search
+        document.getElementById("searchInput").addEventListener("input", renderProducts);
+        document.querySelectorAll('input[name="category"]').forEach(radio => {
+            radio.addEventListener("change", renderProducts);
+        });
+        document.getElementById("minPrice").addEventListener("input", (e) => {
+            document.getElementById("minPriceDisplay").textContent = e.target.value;
+            renderProducts();
+        });
+        document.getElementById("maxPrice").addEventListener("input", (e) => {
+            document.getElementById("maxPriceDisplay").textContent = e.target.value;
+            renderProducts();
+        });
+        document.getElementById("inStock").addEventListener("change", renderProducts);
+
+        // Initial render on page load
+        window.addEventListener('load', renderProducts);
+    </script>
+</body>
+</html>
